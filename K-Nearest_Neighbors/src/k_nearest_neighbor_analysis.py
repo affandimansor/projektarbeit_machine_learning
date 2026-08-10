@@ -3,7 +3,8 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.neighbors import KNeighborsClassifier
-from sklearn.metrics import accuracy_score, ConfusionMatrixDisplay
+from sklearn.metrics import accuracy_score, confusion_matrix
+from mlxtend.plotting import heatmap
 
 # Den Trainings- und Testdatensatz einlesen
 dataset_dir = os.path.join("..", "..", "Vorbereitung_der_Daten", "export")                          # Den Ordnerpfad durch os.path.join zusammenbauen, damit kein Konflikt 
@@ -60,4 +61,24 @@ plt.title("Accuracy score against number of neighbors k")
 plt.grid()
 plt.xlabel("n_neighbors [-]")
 plt.ylabel("Accuracy score [%]")
+plt.show()
+
+# ConfusionMatrix mit einem kNN-Modell bei k = 2
+knn = KNeighborsClassifier(n_neighbors=best_k,          # Ein kNN-Modell mit n_neighbors = best_k bzw. 2 definiere
+                           p=2,
+                           metric='minkowski')
+knn.fit(X_train_std, y_train)                           # Trainiere das Modell
+
+cm = confusion_matrix(y_test, knn.predict(X_test_std))  # Einen Confusion Matrix aus y_test und y_predicted bzw. knn.predict() erstellen
+cols = ["Low", "Average", "High"]                       # Definiere die Spaltennamen, die auf das Heatmap-Diagramm einzutragen sind
+hm = heatmap(cm,                                        # Das Heatmap definiere
+             row_names=cols,
+             column_names=cols,
+             colorbar=True,
+             cmap=plt.cm.YlGn)
+
+# Allegemeine Konfigurationen fuer das Heatmap
+plt.title('Confusion Matrix of the credit score')
+plt.xlabel('Prediction')
+plt.ylabel('True')
 plt.show()
