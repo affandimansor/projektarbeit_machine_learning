@@ -1,0 +1,12 @@
+@startuml
+:Die vorverarbeiteten Trainings- und 
+Testdaten aus csv-Datei einlesen sowie
+jeweils in ein DataFrame Objekt abspeichern;
+:Die Anzahl der Nachbarn k für ein Modell 
+mit hoher Genauigkeit ermitteln;
+:Das Ergebnis visualisieren;
+:Ein neues kNN-Modell mit dem besten k trainieren;
+:Mit dem neuen kNN-Modell Vorhersagen mit Testdaten treffen;
+:Das Ergebnis wird in einen Confusion Matrix
+gesammelt und auf ein Heatmap dargestellt;
+@enduml
