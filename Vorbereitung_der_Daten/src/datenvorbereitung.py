@@ -7,7 +7,8 @@ from mlxtend.plotting import scatterplotmatrix
 import matplotlib.pyplot as plt
 
 # Daten aus der csv-Datei einlesen
-credit_score = pd.read_csv("../Kursmaterial/Credit_Scores.csv")
+credit_score = pd.read_csv(os.path.join("..", "..", "Kursmaterial", "Credit_Scores.csv"))   # Den Ordnerpfad durch os.path.join zusammenbauen, damit kein Konflikt beim 
+                                                                                            # Ausfuehren dieses Skriptes in unterschiedlichen Betriebssystemen entsteht.
 
 # Alle Spaltennamen umschreiben
 credit_score.columns = credit_score.columns.astype(str).str.replace(r'[^A-Za-z0-9]', '_', regex=True)   # Nur Zahlen und Buchstaben erlaubt, alle Sonderzeichen werden mit _ ersetzt
@@ -17,6 +18,16 @@ credit_score.columns = [column.lower() for column in credit_score.columns]      
 # Annahme: Falls vorhanden, die Zeilen mit fehlenden Daten aus dem Datensatz entfernen
 # Annahme: Genuegende Datenpunkte nach dem Entfernen dieser Zeilen sind vorhanden
 credit_score.dropna(axis=0, inplace=True)
+
+# Die kategorialen Daten aufteilen
+X = credit_score.drop("credit_score", axis=1)                               # X beinhaltet nur die Merkmalspalten
+y = credit_score["credit_score"]                                            # y besteht ausschließlich nur aus der Spalte credit_score
+
+X_train_cat, X_test_cat, y_train_cat, y_test_cat = train_test_split(X, y,
+                                                    test_size=0.3,          # Datenmenge in 70% Training und 30% Test aufteilen
+                                                    random_state=42,        # Fuer reproduzierbare Ergebnisse ist random_state=42 ausgewaehlt
+                                                    stratify=y)             # Damit die Verhaeltnisse des Vorkommens der verschiedenen Klassenbezeichnungen dem Verhältnis
+                                                                            # in der Eingabedatenmenge entsprechen
 
 # Die ordinalen Variablen (Credit Score und Education) in Integer-Arrays konvertieren
 # Transformiere die Spalte Credit Score
@@ -52,13 +63,15 @@ plt.show()
 #?  2. Aufgrund bedingter Daten des Credit Scores 0 in der Datenmenge, werden die ML-Modelle nur über ihre Fähigkeit 
 #?  zum Vorhersagen des Credit Scores 1 und 2 bewertet.
 
-# Die Daten aufteilen und durch StandardScaler normiert (Der Parameter random_state beim train_test_split() ist für reproduzierbares Ergebnis wichtig)
+# Die Daten aufteilen und durch den StandardScaler normieren (Der Parameter random_state beim train_test_split() ist für reproduzierbares Ergebnis wichtig)
 X = credit_score.drop("credit_score", axis=1)                           # X beinhaltet nur die Merkmalspalten
 y = credit_score["credit_score"]                                        # y besteht ausschließlich nur aus der Spalte credit_score
 
 X_train, X_test, y_train, y_test = train_test_split(X, y,
                                                     test_size=0.3,      # Datenmenge in 70% Training und 30% Test aufteilen
-                                                    random_state=42)    # Fuer reproduzierbare Ergebnisse ist random_state=42 ausgewaehlt
+                                                    random_state=42,    # Fuer reproduzierbare Ergebnisse ist random_state=42 ausgewaehlt
+                                                    stratify=y)         # Damit die Verhaeltnisse des Vorkommens der verschiedenen Klassenbezeichnungen dem Verhältnis
+                                                                        # in der Eingabedatenmenge entsprechen
 
 # Standardisiere die Merkmale
 sc = StandardScaler()
@@ -74,6 +87,12 @@ train_std_df["credit_score"] = y_train.values                   # Füge y_train 
 test_std_df = pd.DataFrame(X_test_std, columns=feature_cols)    # Ein DataFrame Objekt für X_test_std erzeuge
 test_std_df["credit_score"] = y_test.values                     # Füge y_test als neue Spalte credit_score hinzu
 
+train_cat_df = pd.DataFrame(X_train_cat, columns=feature_cols)  # Ein DataFrame Objekt für X_train_cat erzeuge
+train_cat_df["credit_score"] = y_train_cat.values               # Füge y_cat_train als neue Spalte credit_score hinzu
+
+test_cat_df = pd.DataFrame(X_test_cat, columns=feature_cols)    # Ein DataFrame Objekt für X_test_cat_std erzeuge
+test_cat_df["credit_score"] = y_test_cat.values                 # Füge y_cat_test als neue Spalte credit_score hinzu
+
 # Erstelle einen Ordner fuer die Ausgabedateien
 output_folder = "export"
 os.makedirs(output_folder, exist_ok=True)
@@ -81,10 +100,12 @@ os.makedirs(output_folder, exist_ok=True)
 # Definiere die zu exportierenden Dateinamen
 filenames = ["transformed_credit_score.csv",
               "standardized_trainingdata_credit_score.csv",
-              "standardized_testdata_credit_score.csv"]
+              "standardized_testdata_credit_score.csv",
+              "categorial_trainingdata_credit_score.csv",
+              "categorial_testdata_credit_score.csv"]
 
 # Packe alle Datensaetze in einer Liste fuer for-Schleife ein
-datasets = [credit_score, train_std_df, test_std_df]
+datasets = [credit_score, train_std_df, test_std_df, train_cat_df, test_cat_df]
 
 # Exportiere jeden Datensatz als eigene csv-Datei
 for filename, dataset in zip(filenames, datasets):
