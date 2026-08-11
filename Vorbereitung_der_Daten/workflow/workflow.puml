@@ -1,4 +1,6 @@
 @startuml
+Title Workflow Vorbereitung der Daten
+
 :Daten aus csv-Datei einlesen und
 in ein DataFrame Objekt abspeichern;
 :Prüfen, ob die Spaltennamen nur aus Zahlen und Buchstaben
