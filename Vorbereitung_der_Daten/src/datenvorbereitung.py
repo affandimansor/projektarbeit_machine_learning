@@ -94,7 +94,7 @@ test_cat_df = pd.DataFrame(X_test_cat, columns=feature_cols)    # Ein DataFrame 
 test_cat_df["credit_score"] = y_test_cat.values                 # Füge y_cat_test als neue Spalte credit_score hinzu
 
 # Erstelle einen Ordner fuer die Ausgabedateien
-output_folder = "export"
+output_folder = "../export"
 os.makedirs(output_folder, exist_ok=True)
 
 # Definiere die zu exportierenden Dateinamen
