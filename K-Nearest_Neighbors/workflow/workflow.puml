@@ -1,4 +1,6 @@
 @startuml
+Title Workflow k-Nearest-Neighbors Analysis
+
 :Die vorverarbeiteten Trainings- und 
 Testdaten aus csv-Datei einlesen sowie
 jeweils in ein DataFrame Objekt abspeichern;
