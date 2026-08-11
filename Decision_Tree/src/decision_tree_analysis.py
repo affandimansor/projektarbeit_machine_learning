@@ -107,3 +107,6 @@ y_pred = best_DT.predict(X_test_std)
 
 # Berechne das accuracy_score
 print(f"Accuracy: {np.round(accuracy_score(y_test, y_pred)*100, 2)} %")
+
+# ConfusionMatrix erstellen und ihn auf ein Heatmap darstellen
+CreateVisualizeConfusionMatrix(y_test, y_pred)
