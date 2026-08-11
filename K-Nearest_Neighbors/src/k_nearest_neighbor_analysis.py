@@ -1,29 +1,15 @@
-import os
-import pandas as pd
+import setup_utils_path                                     # Aktualisiere des sys.path, damit der Ordner utils auf dem root Ordner zugaenglich ist
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import accuracy_score, confusion_matrix
 from mlxtend.plotting import heatmap
+from utils.src.data_utils import ReadCSVDataset
+from utils.src.result_utils import CreateVisualizeConfusionMatrix
 
-# Den Trainings- und Testdatensatz einlesen
-dataset_dir = os.path.join("..", "..", "Vorbereitung_der_Daten", "export")                          # Den Ordnerpfad durch os.path.join zusammenbauen, damit kein Konflikt 
-                                                                                                    # beim Ausfuehren dieses Skriptes in unterschiedlichen Betriebssystemen entsteht.
-
-train_std_df = pd.read_csv(os.path.join(dataset_dir, "standardized_testdata_credit_score.csv"),     # Definiere den Dateipfad fuer den Trainingsdatensatz
-                           sep=';')                                                                 # Benutze ; als Spaltentrennzeichen
-test_std_df = pd.read_csv(os.path.join(dataset_dir, "standardized_trainingdata_credit_score.csv"),  # Definiere den Dateipfad fuer den Trainingsdatensatz
-                          sep=';')                                                                  # Benutze ; als Spaltentrennzeichen
-
-# Die Datensaetze in X- und y-Matrizen fuer weitere Berechnungen aufteilen
-# Trainingsdatensatz
-X_train_std = train_std_df.drop("credit_score", axis=1)
-y_train = train_std_df["credit_score"]
-
-# Testdatensatz
-X_test_std = test_std_df.drop("credit_score", axis=1)
-y_test = test_std_df["credit_score"]
-
+# Den Trainings- und Testdatensaetze einlesen
+X_train_std, X_test_std, y_train, y_test = ReadCSVDataset(trainds="standardized_trainingdata_credit_score.csv",
+                                                          testds="standardized_testdata_credit_score.csv")
 
 # Stelle die beste Azahl der Nachbarn k durch eine for-Schleife fest
 acc_scores = []                     # Liste zum Abspeichern der Genauigkeit des Modells je k
@@ -69,16 +55,6 @@ knn = KNeighborsClassifier(n_neighbors=best_k,          # Ein kNN-Modell mit n_n
                            metric='minkowski')
 knn.fit(X_train_std, y_train)                           # Trainiere das Modell
 
-cm = confusion_matrix(y_test, knn.predict(X_test_std))  # Einen Confusion Matrix aus y_test und y_predicted bzw. knn.predict() erstellen
-cols = ["Low", "Average", "High"]                       # Definiere die Spaltennamen, die auf das Heatmap-Diagramm einzutragen sind
-hm = heatmap(cm,                                        # Das Heatmap definiere
-             row_names=cols,
-             column_names=cols,
-             colorbar=True,
-             cmap=plt.cm.YlGn)
-
-# Allegemeine Konfigurationen fuer das Heatmap
-plt.title('Confusion Matrix of the credit score')
-plt.xlabel('Prediction')
-plt.ylabel('True')
-plt.show()
+# Rufe die entsprechende Funktion aus der utils/results_utils.py zum Erstellen und 
+# Darstellen des Confusion Matrixes auf einem HeatMap auf
+CreateVisualizeConfusionMatrix(y_test, knn.predict(X_test_std))
