@@ -18,3 +18,7 @@ scikit-learn==1.9.0
 scipy==1.18.0
 six==1.17.0
 threadpoolctl==3.6.0
+
+# As of 11.08.2026 only 3.9 <= python version <= 3.12 can install the following 2 packages
+tensorflow
+keras
