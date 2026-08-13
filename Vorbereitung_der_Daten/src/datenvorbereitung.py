@@ -67,11 +67,12 @@ X_test_std = sc.transform(X_test)                                       # Transf
                                                                         # keine Datenleckage zw. Trainings- und Testdatensatz auftritt
 
 # Alle relevanten Datensaetze als csv-Datei exportieren
-train_std_df = pd.DataFrame(X_train_std)                    # Ein DataFrame Objekt für X_train_std erzeuge
-train_std_df["credit_score"] = y_train.values               # Füge y_train als neue Spalte credit_score hinzu
+feature_cols = credit_score.columns[:-1]                        # Definiere die Spaltennamen fuer die Merkmale
+train_std_df = pd.DataFrame(X_train_std, columns=feature_cols)  # Ein DataFrame Objekt für X_train_std erzeuge
+train_std_df["credit_score"] = y_train.values                   # Füge y_train als neue Spalte credit_score hinzu
 
-test_std_df = pd.DataFrame(X_test_std)                      # Ein DataFrame Objekt für X_test_std erzeuge
-test_std_df["credit_score"] = y_test.values                 # Füge y_test als neue Spalte credit_score hinzu
+test_std_df = pd.DataFrame(X_test_std, columns=feature_cols)    # Ein DataFrame Objekt für X_test_std erzeuge
+test_std_df["credit_score"] = y_test.values                     # Füge y_test als neue Spalte credit_score hinzu
 
 # Erstelle einen Ordner fuer die Ausgabedateien
 output_folder = "export"
