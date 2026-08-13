@@ -11,4 +11,5 @@ nach optimaler Parameterkombination durchführen;
 :Das beste Modell auf den Testdaten validieren;
 :Ein Confusion Matrix wird aus dem Ergebnis
 erstellt und auf ein Heatmap dargestellt;
+:Das Modellfitting analysieren;
 @enduml
