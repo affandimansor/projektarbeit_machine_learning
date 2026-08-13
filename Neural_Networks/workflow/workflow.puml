@@ -1,0 +1,12 @@
+@startuml
+title Workflow Neural Network Analysis
+
+:Die vorverarbeiteten Trainings- und 
+Testdaten aus csv-Datei einlesen sowie
+jeweils in ein DataFrame Objekt abspeichern;
+:Die Schichten und einen Optimizer definieren;
+:Eine Straffunktion auswählen und
+das neuronale Modell kompilieren;
+:Das Modell mit Trainingsdaten trainieren
+und seine Leistung bewerten;
+@enduml
