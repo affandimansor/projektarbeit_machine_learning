@@ -68,28 +68,6 @@ print(history.history.keys())   # Alle Keywords aus dem History Objekt anzeigen 
 # Auf den letzten accuracy_score des Trainings zugreifen, da das Modell die Parameter aus diesem Stand enthaelt
 acc_train = history.history['sparse_categorical_accuracy'][-1]
 
-# Ermittelt den Index, bei dem die maximale accuracy erstmals auftaucht. Dieser kann im Nachhinein als die Anzahl der Epochs verwendet werden.
-accuracies = history.history['sparse_categorical_accuracy']
-print("first max at the index: %f " % accuracies.index(max(accuracies)))
-
-# -----------------------------------------
-# Das Model auf den Testdaten validieren
-# -----------------------------------------
-# Vorhersagen anhand X_test_std treffen
-# Das Ergebnis ist die Wahrscheinlichkeiten der Klassenzugehoerigkeit, welche deren Summe 1 betraegt
-y_pred = model.predict(X_test_std)
-
-# Das Ergebnis zwecks Debug anzeigen lassen
-compare_y = pd.DataFrame(
-    {
-        "y_test" : y_test.values,
-        "y_pred_Low" : y_pred[:,0],
-        "y_pred_Average" : y_pred[:,1],
-        "y_pred_High" : y_pred[:,2],
-    }
-)
-print(compare_y.head(n=5))
-
 # -----------------------------------------
 # Confusion Matrix und ihre Darstellung auf Heatmap
 # -----------------------------------------
