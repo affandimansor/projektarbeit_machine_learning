@@ -13,4 +13,5 @@ und seine Leistung bewerten;
 der wahren Klassenbezeichnung erstellen;
 :Ein ConfusionMatrix wird erstellt und
 auf ein Heatmap dargestellt;
+:Das Modellfitting analysieren;
 @enduml

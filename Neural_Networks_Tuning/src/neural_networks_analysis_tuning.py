@@ -1,5 +1,6 @@
 import setup_utils_path
 from utils.src.data_utils import ReadCSVDataset
+from utils.src.result_utils import CheckModelFit
 from utils.src.result_utils import CreateVisualizeConfusionMatrix
 import tensorflow as tf
 import pandas as pd
@@ -104,3 +105,13 @@ y_pred = inference_model.predict(X_test_std)
 
 # Einen Confusion Matrix und abschließend ein Heatmap erstellen
 CreateVisualizeConfusionMatrix(y_test=y_test, y_predicted=y_pred)
+
+# -----------------------------------------------------
+# Das Modellfitting analysieren
+# -----------------------------------------------------
+# Die Leistung des Modells mit den Testdaten bewerten
+loss_test, acc_test = model.evaluate(X_test_std, y_test)
+
+# Bestimme das Modellfitting und gebe es auf das Terminal aus
+fit, threshold = CheckModelFit(acc_train*100, acc_test*100)
+print(f"Optimized Neural Networks: {fit}; underfit threshold = {threshold}%")
