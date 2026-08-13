@@ -88,8 +88,8 @@ CreateVisualizeConfusionMatrix(y_test=y_test, y_predicted=y_pred)
 # Das Modellfitting analysieren
 # -----------------------------------------------------
 # Die Leistung des Modells mit den Testdaten bewerten
-loss_test, acc_test = model.evaluate(X_test_std, y_test)
+acc_test = model.evaluate(X_test_std, y_test, return_dict=True)['sparse_categorical_accuracy']
 
 # Bestimme das Modellfitting und gebe es auf das Terminal aus
 fit, threshold = CheckModelFit(acc_train*100, acc_test*100)
-print(f"Optimized Neural Networks: {fit}; underfit threshold = {threshold}%")
+print(f"Optimized Neural Networks: {fit}; overfit threshold = {threshold}%")
