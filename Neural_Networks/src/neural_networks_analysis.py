@@ -25,7 +25,7 @@ model = Sequential([
     Input(shape=(7,)),              # Definiere die Anzahl der Merkmale in der Eingabeschicht
     Dense(40, activation='relu'),   # Eingabeschicht mit 20 Einheiten, entspricht 20 Proben bzw. Samples
     Dense(10, activation='relu'),   # Versteckte Schicht mit 10 Einheiten
-    Dense(1, activation='sigmoid')  # Ausgabeschicht mit nur einer Einheit
+    Dense(3, activation='sigmoid')  # Ausgabeschicht mit nur einer Einheit
 ])
 
 # -----------------------------------------
