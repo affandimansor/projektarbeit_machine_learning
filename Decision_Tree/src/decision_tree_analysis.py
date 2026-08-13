@@ -1,6 +1,5 @@
-import setup_utils_path                                         # Fuege den Ordnerpfad utils dem Systempfad hinzu
+import setup_utils_path                                       
 import numpy as np
-import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import GridSearchCV
@@ -31,8 +30,6 @@ for max_depth in max_depths:
     acc = accuracy_score(y_test, tree.predict(X_test_std)) * 100
     acc_scores.append(acc)
     act_depth.append(tree.get_depth())
-    print(f"Max_depth: {max_depths} | Actual depth built: {tree.get_depth()}")
-    print("Acccuracy_score: %.2f" % acc)
 
 # Visualisiere das Ergebnis
 fig, ax1 = plt.subplots()
@@ -69,7 +66,6 @@ plt.legend(lines, labels, loc='upper right')
 plt.grid()
 plt.show()
 
-
 # -----------------------------------------------------
 # Optimale Parameter durch Cross-Validation suchen
 # -----------------------------------------------------
@@ -93,7 +89,6 @@ grid_search =  GridSearchCV(
 # Trainiere ein DecisionTree Modell mit verschiedenen Parameterkombinationen, um die beste Parameterkombination festzustellen
 grid_search.fit(X_train_std, y_train)
 
-# Die beste Parameterkombination und ihren Score bzw. ihre Genauigkeit ausgeben
 print(f"Best parameter combination:\n {grid_search.best_params_}\nAccuracy score: {np.round(grid_search.best_score_ * 100, 2)}%")
 
 # -----------------------------------------------------
