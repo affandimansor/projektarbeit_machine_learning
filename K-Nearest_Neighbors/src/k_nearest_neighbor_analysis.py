@@ -2,16 +2,18 @@ import setup_utils_path                                     # Aktualisiere des s
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.neighbors import KNeighborsClassifier
-from sklearn.metrics import accuracy_score, confusion_matrix
-from mlxtend.plotting import heatmap
 from utils.src.data_utils import ReadCSVDataset
 from utils.src.result_utils import CreateVisualizeConfusionMatrix
 
-# Den Trainings- und Testdatensaetze einlesen
+# -----------------------------------------------------
+# Auslesen der Datenmenge
+# -----------------------------------------------------
 X_train_std, X_test_std, y_train, y_test = ReadCSVDataset(trainds="standardized_trainingdata_credit_score.csv",
                                                           testds="standardized_testdata_credit_score.csv")
 
-# Stelle die beste Azahl der Nachbarn k durch eine for-Schleife fest
+# -----------------------------------------------------
+# Stelle die beste Azahl der Nachbarn k fest
+# -----------------------------------------------------
 acc_scores = []                     # Liste zum Abspeichern der Genauigkeit des Modells je k
 n_neighbors = np.arange(1, 30)      # Der Wertebereich fuer k
 
@@ -22,16 +24,18 @@ for neighbors in n_neighbors:
     knn.fit(X_train_std, y_train)                                               # Trainiere das knn Model
     acc_scores.append(accuracy_score(knn.predict(X_test_std), y_test) * 100)    # Berechne und abspeichere die Modellgenauigkeit jedes k
 
-# Visualisiere das Ergebnis
-# Kurve der Genauigkeit plotten
+# -----------------------------------------------------
+# Bestimme die beste k und visualisiere das Ergebnis
+# -----------------------------------------------------
+# Bestimmen die beste k
+best_acc = max(acc_scores)                          # Die maximale Genauigkeit auslesen
+best_k = n_neighbors[acc_scores.index(best_acc)]    # Bestimme k fuer das maximale Genauigkeit
+
+# Kurve der Genauigkeiten plotten
 plt.plot(n_neighbors,
             acc_scores,
             c='blue',
             lw=2)
-
-# Bestimmen die beste k
-best_acc = max(acc_scores)                          # Die maximale Genauigkeit auslesen
-best_k = n_neighbors[acc_scores.index(best_acc)]    # Bestimme k fuer das maximale Genauigkeit
 
 # Zeichne den Bestepunkt auf das Diagramm ein
 plt.scatter(best_k,
@@ -49,12 +53,20 @@ plt.xlabel("n_neighbors [-]")
 plt.ylabel("Accuracy score [%]")
 plt.show()
 
-# ConfusionMatrix mit einem kNN-Modell bei k = 2
-knn = KNeighborsClassifier(n_neighbors=best_k,          # Ein kNN-Modell mit n_neighbors = best_k bzw. 2 definiere
+# -----------------------------------------------------
+# Ein kNN-Modell mit der besten k 
+# -----------------------------------------------------
+# Ein kNN-Modell mit n_neighbors = best_k definiere
+knn = KNeighborsClassifier(n_neighbors=best_k,
                            p=2,
                            metric='minkowski')
-knn.fit(X_train_std, y_train)                           # Trainiere das Modell
 
+# Trainiere das Modell
+knn.fit(X_train_std, y_train)
+
+# -----------------------------------------------------
+# Confusion Matrix und Heatmap
+# -----------------------------------------------------
 # Rufe die entsprechende Funktion aus der utils/results_utils.py zum Erstellen und 
 # Darstellen des Confusion Matrixes auf einem HeatMap auf
 CreateVisualizeConfusionMatrix(y_test, knn.predict(X_test_std))
