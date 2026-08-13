@@ -1,0 +1,15 @@
+@startuml
+Title Workflow Vorbereitung der Daten
+
+:Daten aus csv-Datei einlesen und
+in ein DataFrame Objekt abspeichern;
+:Prüfen, ob die Spaltennamen nur aus Zahlen und Buchstaben
+bestehen, ersetze Sonderzeichen mit Leerzeichen;
+:Zeilen mit leerer/-n Zelle/-n aus dem DataFrame entfernen;
+:Die kategorialen Daten in Trainings- und Testdatenmenge aufteilen;
+:Die kategorialen Daten in reelle Zahlen umwandeln;
+:Streudiagrammmatrix zwecks explorativer Datenanalyse (EDA) und zum 
+Entscheiden zw. Normierung oder Standardisierung der Daten zeichnen;
+:Datenskalierung durchführen;
+:Die relevanten Datensätze als .csv-Datei exportieren;
+@enduml
