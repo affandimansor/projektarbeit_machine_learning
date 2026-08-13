@@ -1,0 +1,14 @@
+@startuml
+title Workflow Decision Tree Analysis
+
+:Die vorverarbeiteten Trainings- und 
+Testdaten aus csv-Datei einlesen sowie
+jeweils in ein DataFrame Objekt abspeichern;
+:Den optimalen Parameter max_depth bestimmen;
+:Das Ergebnis visualisieren;
+:Ein CrossValidation durch GridSearchCV für die Suche
+nach optimaler Parameterkombination durchführen;
+:Das beste Modell auf den Testdaten validieren;
+:Ein Confusion Matrix wird aus dem Ergebnis
+erstellt und auf ein Heatmap dargestellt;
+@enduml
