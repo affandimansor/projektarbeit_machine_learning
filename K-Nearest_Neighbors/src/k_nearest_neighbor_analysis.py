@@ -81,4 +81,4 @@ acc_test = accuracy_score(y_test, y_pred) * 100
 
 # Bestimme das Modellfitting und gebe es auf das Terminal aus
 fit, threshold = CheckModelFit(best_acc, acc_test)
-print(f"{fit}; gap threshold = {threshold}%")
+print(f"k-Nearest-Neighbors: {fit}; gap threshold = {threshold}%")
