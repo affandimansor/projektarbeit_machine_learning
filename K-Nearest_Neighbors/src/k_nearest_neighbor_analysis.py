@@ -2,8 +2,9 @@ import setup_utils_path                                     # Aktualisiere des s
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import accuracy_score
 from utils.src.data_utils import ReadCSVDataset
-from utils.src.result_utils import CreateVisualizeConfusionMatrix
+from utils.src.result_utils import CreateVisualizeConfusionMatrix, CheckModelFit
 
 # -----------------------------------------------------
 # Auslesen der Datenmenge
@@ -69,4 +70,15 @@ knn.fit(X_train_std, y_train)
 # -----------------------------------------------------
 # Rufe die entsprechende Funktion aus der utils/results_utils.py zum Erstellen und 
 # Darstellen des Confusion Matrixes auf einem HeatMap auf
-CreateVisualizeConfusionMatrix(y_test, knn.predict(X_test_std))
+y_pred = knn.predict(X_test_std)
+CreateVisualizeConfusionMatrix(y_test, y_pred)
+
+# -----------------------------------------------------
+# Das Modellfitting analysieren
+# -----------------------------------------------------
+# Berechne das accuracy_score der Testdaten
+acc_test = accuracy_score(y_test, y_pred) * 100
+
+# Bestimme das Modellfitting und gebe es auf das Terminal aus
+fit, threshold = CheckModelFit(best_acc, acc_test)
+print(f"{fit}; gap threshold = {threshold}%")
