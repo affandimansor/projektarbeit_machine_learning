@@ -11,4 +11,5 @@ mit hoher Genauigkeit ermitteln;
 :Mit dem neuen kNN-Modell Vorhersagen mit Testdaten treffen;
 :Das Ergebnis wird in einen Confusion Matrix
 gesammelt und auf ein Heatmap dargestellt;
+:Das Modellfitting analysieren;
 @enduml
