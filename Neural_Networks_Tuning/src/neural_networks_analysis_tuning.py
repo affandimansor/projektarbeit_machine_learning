@@ -53,7 +53,7 @@ model.compile(optimizer=adam_optimizer,
 # -----------------------------------------
 # Das Modell trainieren 
 # -----------------------------------------
-model.fit(X_train_std,
+history = model.fit(X_train_std,
           y_train,
           epochs=100,           # Hoehere Epochs ergeben sich kein genaueres Ergebnis
           batch_size=1,         # Alle Gewichte werden nach Bearbeitung eines bzw. jedes Elements oder Datenpunktes aktualisiert
@@ -62,15 +62,14 @@ model.fit(X_train_std,
                                 # Random State wird die Mischung reproduzierbar durchgefuehrt      
           verbose=0)            # Progressbar auf das Terminal nicht anzeigen
 
-# -----------------------------------------
-# Die Leistung des Modells bewerten
-# -----------------------------------------
-# Die entprechenden Bewertungskriterien extrahieren
-loss, accuracy = model.evaluate(X_test_std, y_test)
+print(history.history.keys())   # Alle Keywords aus dem History Objekt anzeigen lassen, falls unsicher, welche in dem History vorhanden sind
 
-# Die Bewertungskriterien auf das Terminal ausgeben
-print(f"Loss: {loss}")
-print(f"Accuracy: {accuracy}")
+# Auf den letzten accuracy_score des Trainings zugreifen, da das Modell die Parameter aus diesem Stand enthaelt
+acc_train = history.history['sparse_categorical_accuracy'][-1]
+
+# Ermittelt den Index, bei dem die maximale accuracy erstmals auftaucht. Dieser kann im Nachhinein als die Anzahl der Epochs verwendet werden.
+accuracies = history.history['sparse_categorical_accuracy']
+print("first max at the index: %f " % accuracies.index(max(accuracies)))
 
 # -----------------------------------------
 # Das Model auf den Testdaten validieren

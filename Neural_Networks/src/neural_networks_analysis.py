@@ -53,7 +53,7 @@ history = model.fit(X_train_std,
                                 # Random State wird die Mischung reproduzierbar durchgefuehrt      
           verbose=0)            # Progressbar auf das Terminal nicht anzeigen
 
-# Auf den letzten accuracy_score des Trainings zugreifen. Annahme, dass dieser der beste accuracy_score ist.
+# Auf den letzten accuracy_score des Trainings zugreifen, da das Modell die Parameter aus diesem Stand enthaelt
 acc_train = history.history['accuracy'][-1]
 
 # -----------------------------------------------------
