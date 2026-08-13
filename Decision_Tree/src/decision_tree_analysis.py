@@ -5,7 +5,7 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import accuracy_score
 from utils.src.data_utils import ReadCSVDataset
-from utils.src.result_utils import CreateVisualizeConfusionMatrix
+from utils.src.result_utils import CreateVisualizeConfusionMatrix, CheckModelFit
 
 # -----------------------------------------------------
 # Auslesen der Datenmenge
@@ -89,7 +89,11 @@ grid_search =  GridSearchCV(
 # Trainiere ein DecisionTree Modell mit verschiedenen Parameterkombinationen, um die beste Parameterkombination festzustellen
 grid_search.fit(X_train_std, y_train)
 
-print(f"Best parameter combination:\n {grid_search.best_params_}\nAccuracy score: {np.round(grid_search.best_score_ * 100, 2)}%")
+# Die beste Parameterkombination auf das Terminal ausgeben
+print(f"Best parameter combination:\n {grid_search.best_params_}")
+
+# Die Genauigkeit des besten Modells extrahieren
+best_acc = np.round(grid_search.best_score_ * 100, 2)
 
 # -----------------------------------------------------
 # Das beste Modell mit Testdaten validieren
@@ -100,8 +104,15 @@ best_DT = grid_search.best_estimator_
 # Vorhersagen mit Testdaten
 y_pred = best_DT.predict(X_test_std)
 
-# Berechne das accuracy_score
-print(f"Accuracy: {np.round(accuracy_score(y_test, y_pred)*100, 2)} %")
-
 # ConfusionMatrix erstellen und ihn auf ein Heatmap darstellen
 CreateVisualizeConfusionMatrix(y_test, y_pred)
+
+# -----------------------------------------------------
+# Das Modellfitting analysieren
+# -----------------------------------------------------
+# Berechne das accuracy_score der Testdaten
+acc_test = accuracy_score(y_test, y_pred) * 100
+
+# Bestimme das Modellfitting und gebe es auf das Terminal aus
+fit, threshold = CheckModelFit(best_acc, acc_test)
+print(f"Decision tree: {fit}; gap threshold = {threshold}%")
