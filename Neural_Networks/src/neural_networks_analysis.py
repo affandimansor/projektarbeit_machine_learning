@@ -6,10 +6,11 @@ from tensorflow.keras.layers import Dense, Input
 from tensorflow.keras.optimizers import Adam
 
 # -------------------------------------------------
-# REPRODUZIERBARKEIT
+# Die Reproduzierbarkeit konfigurieren
 # -------------------------------------------------
 tf.keras.utils.set_random_seed(42)              # Vergleichbar mit random_state=42
-tf.config.experimental.enable_op_determinism()  # Damit TensorFlow nur deterministische Operationen durchfuehrt, somit wird die Reproduzierbarkeit der Ergebnisse gewaehrleistet.
+tf.config.experimental.enable_op_determinism()  # Damit TensorFlow nur deterministische Operationen durchfuehrt. Somit wird
+                                                # die Reproduzierbarkeit der Ergebnisse gewaehrleistet
 
 # -----------------------------------------
 # Die Datenmenge aus csv-Dateien auslesen
@@ -23,9 +24,9 @@ X_train_std, X_test_std, y_train, y_test = ReadCSVDataset(trainds="standardized_
 # Ein neuronales Modell durch die Klasse Sequential definiere
 model = Sequential([
     Input(shape=(7,)),              # Definiere die Anzahl der Merkmale in der Eingabeschicht
-    Dense(40, activation='relu'),   # Eingabeschicht mit 20 Einheiten, entspricht 20 Proben bzw. Samples
-    Dense(10, activation='relu'),   # Versteckte Schicht mit 10 Einheiten
-    Dense(3, activation='sigmoid')  # Ausgabeschicht mit nur einer Einheit
+    Dense(40, activation='relu'),   # Eingabeschicht mit 40 Neuronen, entspricht 40 Proben bzw. Samples
+    Dense(10, activation='relu'),   # Versteckte Schicht mit 10 Neuronen
+    Dense(3, activation='sigmoid')  # Ausgabeschicht mit 30 Neuronen
 ])
 
 # -----------------------------------------
@@ -45,7 +46,7 @@ model.compile(optimizer=adam_optimizer,
 model.fit(X_train_std,
           y_train,
           epochs=50,
-          batch_size=1,
+          batch_size=1,         # Alle Gewichte werden nach Bearbeitung eines bzw. jedes Elements oder Datenpunktes aktualisiert
           validation_split=0.2, # Die Daten fuer Validierung aufsplitten
           shuffle=True,         # Die Daten wird weiterhin gemischt, durch den oben definierten
                                 # Random State wird die Mischung reproduzierbar durchgefuehrt      
