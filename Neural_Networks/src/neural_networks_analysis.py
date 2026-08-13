@@ -1,5 +1,6 @@
 import setup_utils_path
 from utils.src.data_utils import ReadCSVDataset
+from utils.src.result_utils import CheckModelFit
 import tensorflow as tf
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Input
@@ -55,6 +56,12 @@ history = model.fit(X_train_std,
 # Auf den letzten accuracy_score des Trainings zugreifen. Annahme, dass dieser der beste accuracy_score ist.
 acc_train = history.history['accuracy'][-1]
 
-# Die Bewertungskriterien auf das Terminal ausgeben
-print(f"Loss: {loss}")
-print(f"Accuracy: {accuracy}")
+# -----------------------------------------------------
+# Das Modellfitting analysieren
+# -----------------------------------------------------
+# Die Leistung des Modells mit den Testdaten bewerten
+loss_test, acc_test = model.evaluate(X_test_std, y_test)
+
+# Bestimme das Modellfitting und gebe es auf das Terminal aus
+fit, threshold = CheckModelFit(acc_train*100, acc_test*100)
+print(f"Neural Networks: {fit}; underfit threshold = {threshold}%")

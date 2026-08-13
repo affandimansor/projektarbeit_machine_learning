@@ -9,4 +9,5 @@ jeweils in ein DataFrame Objekt abspeichern;
 das neuronale Modell kompilieren;
 :Das Modell mit Trainingsdaten trainieren
 und seine Leistung bewerten;
+:Das Modellfitting analysieren;
 @enduml
