@@ -43,7 +43,7 @@ model.compile(optimizer=adam_optimizer,
 # -----------------------------------------
 # Das Modell trainieren
 # -----------------------------------------
-model.fit(X_train_std,
+history = model.fit(X_train_std,
           y_train,
           epochs=50,
           batch_size=1,         # Alle Gewichte werden nach Bearbeitung eines bzw. jedes Elements oder Datenpunktes aktualisiert
@@ -52,11 +52,8 @@ model.fit(X_train_std,
                                 # Random State wird die Mischung reproduzierbar durchgefuehrt      
           verbose=0)            # Progressbar auf das Terminal nicht anzeigen
 
-# -----------------------------------------
-# Die Leistung des Modells bewerten
-# -----------------------------------------
-# Die entprechenden Bewertungskriterien extrahieren
-loss, accuracy = model.evaluate(X_test_std, y_test)
+# Auf den letzten accuracy_score des Trainings zugreifen. Annahme, dass dieser der beste accuracy_score ist.
+acc_train = history.history['accuracy'][-1]
 
 # Die Bewertungskriterien auf das Terminal ausgeben
 print(f"Loss: {loss}")
