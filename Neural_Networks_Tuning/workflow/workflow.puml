@@ -1,0 +1,16 @@
+@startuml
+title Workflow Neural Network Tuning
+
+:Die vorverarbeiteten Trainings- und 
+Testdaten aus csv-Datei einlesen sowie
+jeweils in ein DataFrame Objekt abspeichern;
+:Eine neue Aktivierungsfunktion auswählen;
+:Eine neue Straffunktion auswählen und
+das neuronale Modell kompilieren;
+:Das Modell mit erhöhten Epochs trainieren
+und seine Leistung bewerten;
+:Ein Inference Modell zum Extrahieren
+der wahren Klassenbezeichnung erstellen;
+:Ein ConfusionMatrix wird erstellt und
+auf ein Heatmap dargestellt;
+@enduml
