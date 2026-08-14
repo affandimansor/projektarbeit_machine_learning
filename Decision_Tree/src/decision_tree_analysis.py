@@ -63,6 +63,7 @@ labels = labels1 + labels2
 
 # Allgemeine Konfiguration des Diagramms
 plt.legend(lines, labels, loc='upper right')
+plt.title("Accuracy score against max_depth")
 plt.grid()
 plt.show()
 
@@ -90,7 +91,15 @@ grid_search =  GridSearchCV(
 grid_search.fit(X_train_std, y_train)
 
 # Die beste Parameterkombination auf das Terminal ausgeben
-print(f"Best parameter combination:\n {grid_search.best_params_}")
+print("Best parameter combination:")
+
+# Header: 20-Charaketerbreite fuer die key Spalte, 10-Charaketerbreite fuer die value Spalte
+print(f"{'Parameter':<20} | {'Value'}")
+print("-" * 20 + " | " + "-" * 10)
+
+# Jeder einzelne Hyperparameter ausgeben 
+for key, value in grid_search.best_params_.items():
+    print(f"{key:<20} | {value}")
 
 # Die Genauigkeit des besten Modells extrahieren
 best_acc = np.round(grid_search.best_score_ * 100, 2)
