@@ -44,7 +44,7 @@ plt.scatter(best_k,
             marker='*',
             s=50,
             c='red',
-            label='Best k')
+            label=f"Best k ({best_k}, {best_acc})")
 
 # Allgemeine Konfigurationen des Diagramms
 plt.legend()
