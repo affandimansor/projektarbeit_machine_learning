@@ -14,7 +14,7 @@ Ensure you have the following installed on your machine:
 
 ## Set up a virtual environment
 On the root directory run the following commands to:
-1. create a virtual environment:
+1. create a virtual environment, as example using Python 3.12:
 ``` bash
     python3.12 -m venv venv
 ```
@@ -32,7 +32,7 @@ On the root directory run the following commands to:
 ## Analysis of the algorithms
 ### Analysis workflow
 For every analysis there is a workflow in png format.
-This file can be found at \<Analysis Name\>/workflow/workflow.png.
+[As example Decision_Tree analysis, this file can be found at](Decision_Tree/workflow/workflow.png)
 
 ### Run an analysis script
 From the root directory, do the following:
@@ -47,4 +47,4 @@ From the root directory, do the following:
 3. The results will be displayed on the terminal.
 
 ### Project report
-[A project report is available under] (Documentation/MuhammadAffandi_BinMansor-Projektarbeit_Machine_Learning.pdf)
+[A project report is available under](Documentation/MuhammadAffandi_BinMansor-Projektarbeit_Machine_Learning.pdf)
