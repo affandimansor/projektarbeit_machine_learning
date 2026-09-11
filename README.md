@@ -31,8 +31,8 @@ On the root directory run the following commands to:
 
 ## Analysis of the algorithms
 ### Analysis workflow
-For every analysis there is a workflow in png format.
-[As example Decision_Tree analysis, this file can be found at](Decision_Tree/workflow/workflow.png)
+For every analysis there is a workflow in png format.\
+As example a workflow for [Decision_Tree](Decision_Tree/workflow/workflow.png)
 
 ### Run an analysis script
 From the root directory, do the following:
@@ -47,4 +47,4 @@ From the root directory, do the following:
 3. The results will be displayed on the terminal.
 
 ### Project report
-[A project report is available under](Documentation/MuhammadAffandi_BinMansor-Projektarbeit_Machine_Learning.pdf)
+[Projektarbeit Machine Learning](Documentation/MuhammadAffandi_BinMansor-Projektarbeit_Machine_Learning.pdf)
