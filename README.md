@@ -36,15 +36,16 @@ As example a workflow for [Decision_Tree](Decision_Tree/workflow/workflow.png)
 
 ### Run an analysis script
 From the root directory, do the following:
-1. change to the specific src folder, e.g. Decision_Tree:
+1. Change to the specific src folder, e.g. Decision_Tree:
 ``` bash
     cd Decision_Tree/src
 ```
-2. run the script in the activated Python virtual environment:
+2. Run the script in the activated Python virtual environment:
 ``` bash
     python decision_tree_analysis.py
 ```
-3. The results will be displayed on the terminal.
+
+The results will be displayed on the terminal.
 
 ### Project report
 [Projektarbeit Machine Learning](Documentation/MuhammadAffandi_BinMansor-Projektarbeit_Machine_Learning.pdf)
