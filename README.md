@@ -31,7 +31,7 @@ On the root directory run the following commands to:
 
 ## Analysis of the algorithms
 ### Analysis workflow
-For every analysis there is a workflow in png format.\
+For every analysis there is a workflow available in _png_ and _puml_ format.\
 As example a workflow for [Decision_Tree](Decision_Tree/workflow/workflow.png)
 
 ### Run an analysis script
